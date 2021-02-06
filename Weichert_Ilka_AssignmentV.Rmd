@@ -17,13 +17,33 @@ I worked on my own. I hereby assure that my submission is in line with the
 ## General setup
 
 Note that task descriptions are printed in bold letters. Only the descriptions
-that are important for operations in R are included.
+that are important for the actual operations are included.
 
 Before I start the project, I clear my workspace.
 
 ```{r packages, message=FALSE, warning=F}
 rm(list = ls())  # clear workspace
 ```
+
+## Exercise 1: Setting up a new GitHub repository
+
+**Register on github.com in case you have not done this already.**
+
+**Initialize a new public repository for this assignment on GitHub.**
+
+**For the following exercises of this assignment, follow the standard Git **
+**workflow (i.e., pull the latest version of the project to your local computer,**
+**then stage, commit, and push all the modifications that you make throughout **
+**the project). Every logical programming step should be well documented on**
+**GitHub with a meaningful commit message, so that other people (e.g., your **
+**course instructor) can follow understand the development history. You can to**
+**do this either using Shell commands or a Git GUI of your choice.**
+
+**In the HTML file that you submit, include the hyperlink to the project **
+**repository (e.g., ht tps:// github.com/yourUserName/ yourProjectName)**
+
+The hyperlink to repository reads 
+https://github.com/ilkaweichert/dspm_assignmentV.git
 
 ## Exercise 2: Getting to know the API
 **Familiarize yourself with the features and functionalities of the Ticketmaster**
@@ -54,7 +74,7 @@ rm(list = ls())  # clear workspace
 
 **glimpse(venue_data)**
 
-##Exercise 4: Interacting with the API - advanced
+## Exercise 4: Interacting with the API - advanced
 
 **Have a closer look at the list element named page. Did your GET request from**
 **exercise 3 return all event locations in Germany? Obviously not - there are **
@@ -76,7 +96,7 @@ rm(list = ls())  # clear workspace
 
 **glimpse(venue_data)**
 
-##Exercise 5: Visualizing the extracted data
+## Exercise 5: Visualizing the extracted data
 
 **Below, you can find code that produces a map of Germany. Add points to the **
 **map indicating the locations of the event venues across Germany.**
@@ -100,7 +120,7 @@ theme(title = element_text(size = 8, face = 'bold'),
 plot.caption = element_text(face = "italic"))
 ```
 
-##Exercise 6: Event locations in other countries
+## Exercise 6: Event locations in other countries
 
 **Repeat exercises 2 to 5 for another European country of your choice. (Hint:**
 **Clean code pays off! If you have coded the exercises efficiently, only very **
