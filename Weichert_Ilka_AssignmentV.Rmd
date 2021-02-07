@@ -56,18 +56,33 @@ https://github.com/ilkaweichert/dspm_assignmentV.git
 
 **Visit the documentation website for the API provided by ticketmaster.com.**
 
+I visit the indicated documentation website for the ticketmaster.com API.
+
 **Familiarize yourself with the features and functionalities of the Ticketmaster**
 **Discovery API. Have a particular look at rate limits.**
+
+I familiarize myself with the Ticketmaster Discovery API. The rate limit is set
+at 5 requests per second. Each API key can request 5,000 API calls every day.
 
 **Within the scope of this assignment, you do not have to request your own API **
 **key. Instead retrieve a valid key from the API Explorer. This API key enables**
 **you to perform the GET requests needed throughout this assignment.**
 
+I retrieve a valid API key from the API Explorer.
+
 **Even though this API key is not secret per se (it is publicly visible on the** 
-**API Explorer website),please comply to the common secrecy practices discussed**
+**API Explorer website), please comply to the common secrecy practices discussed**
 **in the lecture and the tutorial: Treat the API key as a secret token. Your **
 **API key should neither appear in the code that you are submitting nor in your**
 **public GitHub repository.**
+
+I store the just retrieved API key in another R script and will refer to it by 
+calling this script whenever needed so that the key itself does not appear in my
+code nor my public GitHub repository.
+
+```{r load_api_key}
+
+```
 
 ## Exercise 3: Interacting with the API - the basics
 
