@@ -116,8 +116,15 @@ and add "/venues" to find information on the different venues. I then add the
 json extension and include the country code for Germany. By using ``paste()`` to
 add the API key stored in ``api_key`` I make sure, that I do not have to 
 directly include it in this file. I store the content in an object called
-``german_event_venues``, call the object and check it's status to make sure that
-everything worked fine.
+``german_event_venues``, call the object and check it's status running 
+``status_code`` to make sure that everything worked fine. The status code of 200
+tells me that the command has been successfully realized.
+
+When checking the list object ``german_event_venues`` I notice that I received a
+list with 10 entries. The first one shows the URL and the second one again shows 
+the status of the GET command which is 200. The entry which actually is most 
+interesting to me is the one called “content” which is still stored in a 
+machine-readable but not human-readable format.
 
 ```{r German_venues}
 
@@ -134,13 +141,19 @@ status_code(german_event_venues)
 ```
 
 **Extract the name, the city, the postalCode and address, as well as the url **
-**and the longitude and latitude of the venues to a data frame. This data frame**
-**should have the following structure:**
+**and the longitude and latitude of the venues to a data frame.**
+
+First of all, I extract the information stored in the list object ``content`` in
+``german_event_venues`` by calling ``fromJSON()`` in combination with 
+``content()`` and specifying the type as "text". I do so to avoid any potential 
+errors and to make sure that the response object is correctly identified as a 
+JSON-object.
 
 ```{r extract_information}
 
-
-
+# store response content
+german_event_venues_reduced <-
+  fromJSON(content(german_event_venues, as = "text"))
 
 # check data 
 glimpse(venue_data)
