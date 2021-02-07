@@ -54,6 +54,8 @@ https://github.com/ilkaweichert/dspm_assignmentV.git
 
 ## Exercise 2: Getting to know the API
 
+**Visit the documentation website for the API provided by ticketmaster.com.**
+
 **Familiarize yourself with the features and functionalities of the Ticketmaster**
 **Discovery API. Have a particular look at rate limits.**
 
