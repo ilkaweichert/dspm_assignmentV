@@ -80,7 +80,9 @@ I store the just retrieved API key in another R script and will refer to it by
 calling this script whenever needed so that the key itself does not appear in my
 code nor my public GitHub repository.
 
-```{r load_api_key}
+```{r source_api_key}
+
+source("C:\Users\Ilka\UT Cloud\Theresa Veer - Promotion (Ilka Weichert)\Weiterbildung\R\Data Science Project Management\WS 20_21\Assignments\Assignment 5/api_key.R")
 
 ```
 
