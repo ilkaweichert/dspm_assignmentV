@@ -145,9 +145,16 @@ status_code(german_event_venues)
 
 First of all, I extract the information stored in the list object ``content`` in
 ``german_event_venues`` by calling ``fromJSON()`` in combination with 
-``content()`` and specifying the type as "text". I do so to avoid any potential 
-errors and to make sure that the response object is correctly identified as a 
-JSON-object.
+``content()`` and specifying the type as "text" and store it in an object called
+``german_event_venues_reduced``. I do so to avoid any potential errors and to 
+make sure that the response object is correctly identified as a JSON-object.
+In a second step, I extract the city, postal code, address, URL, longitude and
+latitude of the ventures and store them in a ``data.frame`` by calling 
+``as.data.frame()`` in combination with ``cbind()`` combining the respective
+list objects. I then adjust the column names by running ``setNames()``. Lastly, 
+I call ``glimpse()`` on ``venue_data`` and compare the resulting structure with
+the one given in the assignment instructions. The structure is identical. 
+## even though the content does not seem to be the same
 
 ```{r extract_information}
 
@@ -155,8 +162,37 @@ JSON-object.
 german_event_venues_reduced <-
   fromJSON(content(german_event_venues, as = "text"))
 
+# extract sought-after information
+venue_data <-
+  as.data.frame(cbind(
+      german_event_venues_reduced[["_embedded"]][["venues"]][["name"]], 
+      german_event_venues_reduced[["_embedded"]][["venues"]][["city"]][["name"]],
+      german_event_venues_reduced[["_embedded"]][["venues"]][["postalCode"]],
+      german_event_venues_reduced[["_embedded"]][["venues"]][["address"]][["line1"]],
+      german_event_venues_reduced[["_embedded"]][["venues"]][["url"]],
+      german_event_venues_reduced[["_embedded"]][["venues"]][["location"]][["longitude"]],
+      german_event_venues_reduced[["_embedded"]][["venues"]][["location"]][["latitude"]]
+      )
+  )
+
+# adjust column names
+venue_data <- 
+  setNames(
+    venue_data,
+    c(
+      "name",
+      "city", 
+      "postalCode", 
+      "address", 
+      "url", 
+      "longitude", 
+      "latitude")
+    )
+
 # check data 
 glimpse(venue_data)
+# note that the structure is the same compared to example in assignment but the
+# content not necessarily. Problem?
 ```
 ## Exercise 4: Interacting with the API - advanced
 
