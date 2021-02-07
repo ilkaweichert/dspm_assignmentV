@@ -82,13 +82,28 @@ code nor my public GitHub repository.
 
 ```{r source_api_key}
 
-source("C:\Users\Ilka\UT Cloud\Theresa Veer - Promotion (Ilka Weichert)\Weiterbildung\R\Data Science Project Management\WS 20_21\Assignments\Assignment 5/api_key.R")
+# source API key from another R script
+source("C:/Users/Ilka/UT Cloud/Theresa Veer - Promotion (Ilka Weichert)/Weiterbildung/R/Data Science Project Management/WS 20_21/Assignments/Assignment 5/api_key.R")
 
 ```
 
 ## Exercise 3: Interacting with the API - the basics
 
 **Load the packages needed to interact with APIs using R.**
+
+I load the packages which I need to interact with APIs using R. Note that first
+especially the ``httr`` and the ``jsonlite`` package are needed to start working
+with the ticketmaster API.
+
+```{r load_packages}
+
+# load packages
+library(httr)      #  implementing http methods in R
+library(jsonlite)  #  convert JSON object into R object
+library(rlist)     #  working with list objects
+library(tidyverse) #  set of packages that work in harmony
+
+```
 
 **Perform a first GET request, that searches for event venues in Germany **
 **(countryCode = "DE"). Extract the content from the response object and **
