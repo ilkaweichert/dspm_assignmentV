@@ -217,6 +217,34 @@ that I can specify the page number in the URL that I use for scraping the data.
 **variables name, city, postalCode, address, url, longitude, and latitude. Join**
 **the information in one large data frame.**
 
+```{r page_loop}
+
+full_venue_data <- tibble(
+  name  = character(n),
+  city   = character(n),
+  postalCode = character(n),
+  address   = character(n),
+  url = character(n),
+  longitude = numeric(n),
+  latitutde = numeric(n)
+  )
+
+page_number <- c(1:238)
+
+for (i in page_number) {
+  full_venue_data <-
+    GET("https://app.ticketmaster.com/discovery/v2/venues.json?",
+              query = list(apiKey = api_key,
+                           countryCode = "DE",
+                           page = i))
+  
+  
+  
+  
+}
+
+```
+
 **The resulting data frame should look something like this (note that the exact**
 **number of search results may have changed since this document has been last**
 **modified):**
