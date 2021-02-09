@@ -210,7 +210,7 @@ are 237 pages with 20 entries and a further page with only 3 entries.
 ```{r check_list_elements}
 
 # check number of total pages
-german_event_venues_reduced[["page"]][["totalPages"]]
+n_page <- german_event_venues_reduced[["page"]][["totalPages"]]
 
 # check number of total entries
 german_event_venues_reduced[["page"]][["number"]]
@@ -219,9 +219,9 @@ german_event_venues_reduced[["page"]][["number"]]
 german_event_venues_reduced[["page"]][["size"]]
 
 # check number of entries on last page
-page_number <- floor(4743/20)
+page_number <- floor(n_page/20)
 
-missing_entries <- 4743 - 20 * floor(4743/20)
+missing_entries <- n_page - 20 * floor(n_page/20)
 
 ```
 
@@ -238,27 +238,41 @@ that I can specify the page number in the URL that I use for scraping the data.
 
 ```{r page_loop}
 
-full_venue_data <- tibble(
-  name  = character(n),
-  city   = character(n),
-  postalCode = character(n),
-  address   = character(n),
-  url = character(n),
-  longitude = numeric(n),
-  latitutde = numeric(n)
+full_venue_data <- data.frame(
+  name  = character(n_page),
+  city   = character(n_page),
+  postalCode = integer(n_page),
+  address   = character(n_page),
+  url = character(n_page),
+  longitude = numeric(n_page),
+  latitutde = numeric(n_page),
+  stringsAsFactors = F
   )
 
 for (i in page_number) {
   full_venue_data <-
-    GET("https://app.ticketmaster.com/discovery/v2/venues.json?",
-              query = list(apikey = api_key,
-                           countryCode = "DE",
-                           page = i))
+    part_venues <- GET("https://app.ticketmaster.com/discovery/v2/venues.json?",
+                       query = list(apikey = api_key,
+                                    countryCode = "DE",
+                                    page = i))
   
-  
-  
-  
+    german_venues <-
+    fromJSON(content(part_venues, as = "text"))
+    
+    full_venue_data[(20 * i - 19):(10 * i), ] <- list.stack(german_venues$embedded)
+
 }
+
+
+i <- i + 1
+
+further_venues <- GET("https://app.ticketmaster.com/discovery/v2/venues.json?",
+                       query = list(apikey = api_key,
+                                    countryCode = "DE",
+                                    page = i))
+  german_venues <-
+    fromJSON(content(german_event_venues, as = "text"))
+  full_venue_data[(20 * i - 19):(n), ] <- list.stack(german_venues$Search)
 
 ```
 
