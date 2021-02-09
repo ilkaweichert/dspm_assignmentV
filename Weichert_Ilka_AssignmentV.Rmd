@@ -209,6 +209,9 @@ pages in total.
 **Check the API documentation under the section Venue Search. How can you **
 **request the venues from the remaining results pages?**
 
+Having a look at the section Venue Search in the API documentation I realize
+that I can specify the page number in the URL that I use for scraping the data.
+
 **Write a for loop that iterates through the results pages and performs a GET**
 **request for all venues in Germany. After each iteration, extract the seven**
 **variables name, city, postalCode, address, url, longitude, and latitude. Join**
