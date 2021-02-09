@@ -44,7 +44,12 @@ I set up a new public repository called "dspm_assignmentV".
 **do this either using Shell commands or a Git GUI of your choice.**
 
 In the following exercises I make sure to follow the standard Git workflow and
-document each logical programming step using R Studio.
+document each logical programming step using R Studio. However, when working at
+the ``for`` loop for exercise 4, I'm running into a problem since somehow I 
+merged the branch "main" (probably by ticking the box for "Amend previous 
+comment"). Therefore, the commits identified by 
+4281530c61ec8b550a13d8cd50dbc697e379bdae to 
+c3f40420e4080261f1c4c86ebb0b4f46037c93b1 might be confusing to look at.
 
 **In the HTML file that you submit, include the hyperlink to the project **
 **repository (e.g., ht tps:// github.com/yourUserName/ yourProjectName)**
