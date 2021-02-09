@@ -202,6 +202,10 @@ glimpse(venue_data)
 **GET request only yielded the first results page containing the first 20 out of**
 **several thousands of venues.**
 
+Checking the list element "page" I notice that by now I only stored 20 venues in
+R. They all come from the first results page, however, there are 238 results 
+pages in total.
+
 **Check the API documentation under the section Venue Search. How can you **
 **request the venues from the remaining results pages?**
 
