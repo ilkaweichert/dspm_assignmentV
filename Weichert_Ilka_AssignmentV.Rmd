@@ -251,7 +251,7 @@ full_venue_data <- tibble(
 for (i in page_number) {
   full_venue_data <-
     GET("https://app.ticketmaster.com/discovery/v2/venues.json?",
-              query = list(apiKey = api_key,
+              query = list(apikey = api_key,
                            countryCode = "DE",
                            page = i))
   
