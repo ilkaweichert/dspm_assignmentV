@@ -267,10 +267,11 @@ for (i in page_number) {
                                     page = i))
   
     german_venues <-
-    fromJSON(content(part_venues, as = "text"))
+    fromJSON(content(part_venues, as = "text"))[["_embedded"]][["venues"]]
     
     full_venue_data[(20 * i - 19):(10 * i), ] <- list.stack(german_venues$embedded)
-
+    
+  Sys.sleep(0.2)
 }
 
 
