@@ -261,10 +261,6 @@ full_venue_data <- data.frame(
   stringsAsFactors = F
   )
 
-german_event_venues <- 
-  GET(paste("https://app.ticketmaster.com/discovery/v2/venues.json?countryCode=DE&apikey=", api_key, sep = ""))
-
-
 part_venues <- 
   GET("https://app.ticketmaster.com/discovery/v2/venues.json?",
       query = list(apikey = api_key,
@@ -273,9 +269,14 @@ part_venues <-
   
 german_venues <-
   fromJSON(content(part_venues, as = "text"))[["_embedded"]][["venues"]]
+
+german_venues <-
+  fromJSON(content(part_venues, as = "text"))[["_embedded"]]
+
+full_venue_data[(20 * 1 - 19):(10 * 1), ] <- list.stack(german_venues)
     
 full_venue_data[(20 * 1 - 19):(10 * 1), ] <- german_venues %>%
-  select(name, city, postalCode, address, url, )
+  select(name, city, postalCode, address, url, list.stack(venues$location))
 
 
 for (i in page_number) {
