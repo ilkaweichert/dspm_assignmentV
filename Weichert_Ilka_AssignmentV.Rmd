@@ -194,6 +194,13 @@ venue_data <-
       "latitude")
     )
 
+# adjust variable types for longitude and latitude
+venue_data$longitude <-
+  as.double(venue_data$longitude)
+venue_data$latitude <-
+  as.double(venue_data$latitude)
+
+
 # check data 
 glimpse(venue_data)
 # note that the structure is the same compared to example in assignment but the
