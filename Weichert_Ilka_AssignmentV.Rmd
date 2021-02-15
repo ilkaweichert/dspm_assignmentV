@@ -219,14 +219,18 @@ are 237 pages with 20 entries and a further page with only 3 entries.
 
 ```{r check_list_elements}
 
+# store response object anew to be able to exctract information other than content
+german_event_venues_pages <-
+  fromJSON(content(german_event_venues, as = "text"))
+
 # check number of total pages
-n_page <- german_event_venues_reduced[["page"]][["totalPages"]]
+n_page <- german_event_venues_pages[["page"]][["totalPages"]]
 
 # check number of total entries
-german_event_venues_reduced[["page"]][["totalElements"]]
+german_event_venues_pages[["page"]][["totalElements"]]
 
 # check number of entries on each page
-german_event_venues_reduced[["page"]][["size"]]
+german_event_venues_pages[["page"]][["size"]]
 
 # check number of entries on last page
 page_number <- floor(n_page/20)
@@ -259,6 +263,18 @@ full_venue_data <- data.frame(
   stringsAsFactors = F
   )
 
+part_venues <- 
+  GET("https://app.ticketmaster.com/discovery/v2/venues.json?",
+      query = list(apikey = api_key,
+                   countryCode = "DE",
+                   page = 1))
+  
+german_venues <-
+  fromJSON(content(part_venues, as = "text"))[["_embedded"]][["venues"]]
+    
+full_venue_data[(20 * 1 - 19):(10 * 1), ] <- list.stack(german_venues$embedded)
+
+
 for (i in page_number) {
   full_venue_data <-
     part_venues <- GET("https://app.ticketmaster.com/discovery/v2/venues.json?",
@@ -282,7 +298,7 @@ further_venues <- GET("https://app.ticketmaster.com/discovery/v2/venues.json?",
                                     countryCode = "DE",
                                     page = i))
   german_venues <-
-    fromJSON(content(german_event_venues, as = "text"))
+    fromJSON(content(german_event_venues, as = "text"))[["_embedded"]][["venues"]]
   full_venue_data[(20 * i - 19):(n), ] <- list.stack(german_venues$Search)
 
 ```
