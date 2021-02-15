@@ -225,7 +225,7 @@ are 237 pages with 20 entries and a further page with only 3 entries.
 n_page <- german_event_venues_reduced[["page"]][["totalPages"]]
 
 # check number of total entries
-german_event_venues_reduced[["page"]][["number"]]
+german_event_venues_reduced[["page"]][["totalElements"]]
 
 # check number of entries on each page
 german_event_venues_reduced[["page"]][["size"]]
