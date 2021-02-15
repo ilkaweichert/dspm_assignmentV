@@ -167,16 +167,16 @@ the one given in the assignment instructions. The structure is identical.
 german_event_venues_reduced <-
   fromJSON(content(german_event_venues, as = "text"))
 
+
 # extract sought-after information
 venue_data <-
   as.data.frame(cbind(
       german_event_venues_reduced[["_embedded"]][["venues"]][["name"]], 
-      german_event_venues_reduced[["_embedded"]][["venues"]][["city"]][["name"]],
+      german_event_venues_reduced[["_embedded"]][["venues"]][["city"]],
       german_event_venues_reduced[["_embedded"]][["venues"]][["postalCode"]],
-      german_event_venues_reduced[["_embedded"]][["venues"]][["address"]][["line1"]],
+      german_event_venues_reduced[["_embedded"]][["venues"]][["address"]],
       german_event_venues_reduced[["_embedded"]][["venues"]][["url"]],
-      german_event_venues_reduced[["_embedded"]][["venues"]][["location"]][["longitude"]],
-      german_event_venues_reduced[["_embedded"]][["venues"]][["location"]][["latitude"]]
+      german_event_venues_reduced[["_embedded"]][["venues"]][["location"]]
       )
   )
 
