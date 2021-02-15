@@ -167,7 +167,6 @@ the one given in the assignment instructions. The structure is identical.
 german_event_venues_reduced <-
   fromJSON(content(german_event_venues, as = "text"))[["_embedded"]][["venues"]]
 
-
 # extract sought-after information
 venue_data <-
   as.data.frame(cbind(german_event_venues_reduced$name, 
