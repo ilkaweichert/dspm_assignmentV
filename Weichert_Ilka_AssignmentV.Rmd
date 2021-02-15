@@ -282,7 +282,7 @@ further_venues <- GET("https://app.ticketmaster.com/discovery/v2/venues.json?",
                                     countryCode = "DE",
                                     page = i))
   german_venues <-
-    fromJSON(content(german_event_venues, as = "text"))
+    fromJSON(content(german_event_venues, as = "text"))[["_embedded"]][["venues"]]
   full_venue_data[(20 * i - 19):(n), ] <- list.stack(german_venues$Search)
 
 ```
