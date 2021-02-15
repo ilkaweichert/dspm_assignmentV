@@ -165,19 +165,17 @@ the one given in the assignment instructions. The structure is identical.
 
 # store response content
 german_event_venues_reduced <-
-  fromJSON(content(german_event_venues, as = "text"))
+  fromJSON(content(german_event_venues, as = "text"))[["_embedded"]][["venues"]]
 
 
 # extract sought-after information
 venue_data <-
-  as.data.frame(cbind(
-      german_event_venues_reduced[["_embedded"]][["venues"]][["name"]], 
-      german_event_venues_reduced[["_embedded"]][["venues"]][["city"]],
-      german_event_venues_reduced[["_embedded"]][["venues"]][["postalCode"]],
-      german_event_venues_reduced[["_embedded"]][["venues"]][["address"]],
-      german_event_venues_reduced[["_embedded"]][["venues"]][["url"]],
-      german_event_venues_reduced[["_embedded"]][["venues"]][["location"]]
-      )
+  as.data.frame(cbind(german_event_venues_reduced$name, 
+                      german_event_venues_reduced$city,
+                      german_event_venues_reduced$postalCode,
+                      german_event_venues_reduced$address,
+                      german_event_venues_reduced$url,
+                      german_event_venues_reduced$location)
   )
 
 # adjust column names
