@@ -159,14 +159,12 @@ latitude of the ventures and store them in a ``data.frame`` by calling
 list objects. I then adjust the column names by running ``setNames()``. Lastly, 
 I call ``glimpse()`` on ``venue_data`` and compare the resulting structure with
 the one given in the assignment instructions. The structure is identical. 
-## even though the content does not seem to be the same
 
 ```{r extract_information}
 
 # store response content
 german_event_venues_reduced <-
   fromJSON(content(german_event_venues, as = "text"))[["_embedded"]][["venues"]]
-
 
 # extract sought-after information
 venue_data <-
