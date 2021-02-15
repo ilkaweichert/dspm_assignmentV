@@ -121,9 +121,9 @@ and add "/venues" to find information on the different venues. I then add the
 json extension and include the country code for Germany. By using ``paste()`` to
 add the API key stored in ``api_key`` I make sure, that I do not have to 
 directly include it in this file. I store the content in an object called
-``german_event_venues``, call the object and check it's status running 
+``german_event_venues``, call the object and check its status running 
 ``status_code`` to make sure that everything worked fine. The status code of 200
-tells me that the command has been successfully realized.
+tells me that the server has successfully received my request.
 
 When checking the list object ``german_event_venues`` I notice that I received a
 list with 10 entries. The first one shows the URL and the second one again shows 
