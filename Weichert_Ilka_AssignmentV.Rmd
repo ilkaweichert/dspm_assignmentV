@@ -54,7 +54,7 @@ c3f40420e4080261f1c4c86ebb0b4f46037c93b1 might be confusing to look at.
 **In the HTML file that you submit, include the hyperlink to the project **
 **repository (e.g., ht tps:// github.com/yourUserName/ yourProjectName)**
 
-The hyperlink to repository reads 
+The hyperlink to the project repository reads 
 https://github.com/ilkaweichert/dspm_assignmentV.git
 
 ## Exercise 2: Getting to know the API
