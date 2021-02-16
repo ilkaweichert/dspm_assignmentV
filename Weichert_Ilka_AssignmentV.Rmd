@@ -267,12 +267,18 @@ part_venues <-
                    countryCode = "DE",
                    locale = "*"))
   
+german_venues <-
+  content(part_venues)[["_embedded"]]
 
 
 german_venues <-
   fromJSON(content(part_venues, as = "text"))[["_embedded"]][["venues"]]
 # works but does not what it should
-full_venue_data[(20 * 1 - 19):(10 * 1), ] <- list.stack(german_venues)
+full_venue_data[(20 * 1 - 19):(20 * 1), ] <- list.stack(german_venues$venues[["location"]])
+
+
+check <- list.stack(german_venues$location)
+
 
 # doesn't work    
 full_venue_data[(20 * 1 - 19):(10 * 1), ] <- german_venues %>%
@@ -280,6 +286,70 @@ full_venue_data[(20 * 1 - 19):(10 * 1), ] <- german_venues %>%
 
 full_venue_data[(20 * 1 - 19):(10 * 1), ] <- german_venues %>%
   select(1, 5, 10, 13, 14, 15)
+
+
+#Looping function to get a single string, separating values by commas for those values in the form of lists 
+makeSingleStringFromList <- function(SomeList) {
+    #If list is empty return NA
+    if (length(SomeList) == 0) {
+        NA
+    } else {
+        # Create array with the length of the list
+        myArray <- array(data = NA, dim = length(SomeList), dimname = NULL)
+        #Loop through list and add individual values to indexed position within array
+        for (i in 1:length(SomeList)) {
+            myArray[i] <- SomeList[i]
+        }
+        #Collapse individual values into one string
+        singleString <- paste(myArray, collapse = ",")
+        #Return string
+        singleString
+    }
+}
+
+#Another helper function to loop through a list within a list
+makeSingleStringFromListWithinList <- function(SomeList) {
+    #If list is empty return NA
+    if (length(SomeList) == 0 | is.null(SomeList)) {
+        NA
+    } else {
+        myArray <- array(data = NA, dim = length(SomeList), dimname = NULL)
+        for (i in 1:length(SomeList)) {
+            myArray[i] <- makeSingleStringFromList(SomeList[[i]]$value)
+        }
+        #Collapse individual values into one string
+        singleString <- paste(myArray, collapse = ";")
+        #Return string
+        singleString
+    }
+}
+
+
+response = GET(paste("https://app.ticketmaster.com/discovery/v2/venues.json?countryCode=DE&locale=*&apikey=", api_key, sep = ""))
+    if (response$status_code == 200) { #then go on to get Content
+        data <- fromJSON(rawToChar(response$content)) 
+        
+        #Loop through lists and make into single strins separated by commas
+        name <- makeSingleStringFromList(data$embedded$venues$name)
+        city <- makeSingleStringFromListWithinList(data$embedded$venues$city$name)
+        postalCode <- makeSingleStringFromList(data$embedded$venues$postalCode)
+        address <- makeSingleStringFromListWithinList(data$embedded$venues$address$line1)
+        url <- makeSingleStringFromList(data$embedded$venues$url)
+        locale <- makeSingleStringFromList(data$embedded$venues$locale)
+        longitude <- makeSingleStringFromListWithinList(data$embedded$venues$location$longitude)
+        latitude <- makeSingleStringFromListWithinList(data$embedded$venues$location$latitude)
+        
+        ticketmaster_data <- as.data.frame(
+          name,
+          city,
+          postalCode,
+          address,
+          url,
+          locale,
+          longitude,
+          latitude
+        )
+    }
 
 
 for (i in page_number) {
@@ -293,7 +363,7 @@ for (i in page_number) {
     german_venues <-
     fromJSON(content(part_venues, as = "text"))[["_embedded"]][["venues"]]
     
-    full_venue_data[(20 * i - 19):(10 * i), ] <- list.stack(german_venues$embedded)
+    full_venue_data[(20 * i - 19):(20 * i), ] <- list.stack(german_venues$embedded)
     
   Sys.sleep(0.2)
 }
