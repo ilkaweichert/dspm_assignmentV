@@ -261,6 +261,7 @@ full_venue_data <- data.frame(
   stringsAsFactors = F
   )
 
+# trying commands outside of for loop
 part_venues <- 
   GET("https://app.ticketmaster.com/discovery/v2/venues.json?",
       query = list(apikey = api_key,
@@ -288,6 +289,43 @@ full_venue_data[(20 * 1 - 19):(10 * 1), ] <- german_venues %>%
   select(1, 5, 10, 13, 14, 15)
 
 
+
+
+
+# setting up the for loop
+for (i in page_number) {
+  full_venue_data <-
+    part_venues <- GET("https://app.ticketmaster.com/discovery/v2/venues.json?",
+                       query = list(apikey = api_key,
+                                    countryCode = "DE",
+                                    locale = "*",
+                                    page = i))
+  
+    german_venues <-
+    fromJSON(content(part_venues, as = "text"))[["_embedded"]][["venues"]]
+    
+    full_venue_data[(20 * i - 19):(20 * i), ] <- list.stack(german_venues$embedded)
+    
+  Sys.sleep(0.2)
+}
+
+
+i <- i + 1
+
+further_venues <- GET("https://app.ticketmaster.com/discovery/v2/venues.json?",
+                       query = list(apikey = api_key,
+                                    countryCode = "DE",
+                                    locale = "*",
+                                    page = i))
+  german_venues <-
+    fromJSON(content(german_event_venues, as = "text"))[["_embedded"]][["venues"]]
+  full_venue_data[(20 * i - 19):(n), ] <- list.stack(german_venues$Search)
+  
+  
+
+  
+  
+  # alternative following Layla's approach for the Crunchbase API
 #Looping function to get a single string, separating values by commas for those values in the form of lists 
 makeSingleStringFromList <- function(SomeList) {
     #If list is empty return NA
@@ -315,7 +353,7 @@ makeSingleStringFromListWithinList <- function(SomeList) {
     } else {
         myArray <- array(data = NA, dim = length(SomeList), dimname = NULL)
         for (i in 1:length(SomeList)) {
-            myArray[i] <- makeSingleStringFromList(SomeList[[i]]$value)
+            myArray[i] <- makeSingleStringFromList(SomeList[[i]]$value) # this should probably not be $value because in my lists there are no such objects
         }
         #Collapse individual values into one string
         singleString <- paste(myArray, collapse = ";")
@@ -351,34 +389,6 @@ response = GET(paste("https://app.ticketmaster.com/discovery/v2/venues.json?coun
         )
     }
 
-
-for (i in page_number) {
-  full_venue_data <-
-    part_venues <- GET("https://app.ticketmaster.com/discovery/v2/venues.json?",
-                       query = list(apikey = api_key,
-                                    countryCode = "DE",
-                                    locale = "*",
-                                    page = i))
-  
-    german_venues <-
-    fromJSON(content(part_venues, as = "text"))[["_embedded"]][["venues"]]
-    
-    full_venue_data[(20 * i - 19):(20 * i), ] <- list.stack(german_venues$embedded)
-    
-  Sys.sleep(0.2)
-}
-
-
-i <- i + 1
-
-further_venues <- GET("https://app.ticketmaster.com/discovery/v2/venues.json?",
-                       query = list(apikey = api_key,
-                                    countryCode = "DE",
-                                    locale = "*",
-                                    page = i))
-  german_venues <-
-    fromJSON(content(german_event_venues, as = "text"))[["_embedded"]][["venues"]]
-  full_venue_data[(20 * i - 19):(n), ] <- list.stack(german_venues$Search)
 
 ```
 
